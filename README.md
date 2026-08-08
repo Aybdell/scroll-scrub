@@ -5,11 +5,7 @@ The scroll controls the video playback frame by frame.
 
 ---
 
-## Live Demo
 
-[ayybdell.vercel.app](https://ayybdell.vercel.app)
-
----
 
 ## Tech Stack
 
