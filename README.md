@@ -114,15 +114,6 @@ On mobile, scroll-scrub is disabled and the video plays on loop instead.
 
 ---
 
-## Deployment
-
-This project is deployed on [Vercel](https://vercel.com).
-
-```bash
-npm run build
-# then drag the dist/ folder to Vercel
-# or connect your GitHub repo directly
-```
 
 > Remember: do not push `public/hero.mp4` to GitHub.
 > Add it to `.gitignore` and host the video separately if needed.
