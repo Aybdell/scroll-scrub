@@ -1,16 +1,140 @@
-# React + Vite
+# Ayoub Dellaoui — Cinematic Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A cinematic scroll-scrub portfolio built with React, GSAP, and Lenis.
+The scroll controls the video playback frame by frame.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live Demo
 
-## React Compiler
+[ayybdell.vercel.app](https://ayybdell.vercel.app)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the Oxlint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- React + Vite
+- GSAP + ScrollTrigger
+- Lenis (smooth scroll)
+- CSS Variables
+- Google Fonts (Fraunces + Inter)
+
+---
+
+## Features
+
+- Scroll-scrub video — scroll drives video playback frame by frame
+- Smooth scroll with Lenis
+- GSAP reveal animations on all sections
+- Floating pill header — centered, glassmorphism
+- Cinematic text sections floating over video
+- Fully responsive — desktop and mobile
+- Video loops seamlessly across the full scroll length
+
+---
+
+## Getting Started
+
+```bash
+# Clone the repo
+git clone https://github.com/Aybdell/cinematic-portfolio.git
+cd cinematic-portfolio
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+---
+
+## Video Setup
+
+The hero video is not included in this repository (file too large for GitHub).
+You need to provide your own video to run the project locally.
+
+**1. Get a free cinematic video:**
+- [pexels.com/videos](https://pexels.com/videos)
+- Recommended search: `cinematic dark technology` or `coding screen dark`
+- Download in 1080p or 4K, duration between 15–30 seconds
+
+**2. Encode it with FFmpeg for smooth scroll-scrub:**
+
+Without this step the video will stutter — FFmpeg adds a keyframe
+on every frame which is required for frame-by-frame scrubbing.
+
+```bash
+ffmpeg -i input.mp4 -movflags faststart -vcodec libx264 -crf 20 -g 1 -pix_fmt yuv420p public/hero.mp4
+```
+
+**3. Place the output file here:**
+
+```
+public/
+└── hero.mp4   ← your encoded video goes here
+```
+
+> Without this file the video background will not appear,
+> but the rest of the site works normally.
+
+---
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── Header.jsx        ← floating pill nav
+│   ├── HeroSection.jsx   ← name, tagline, CTA buttons
+│   ├── ProjectCard.jsx   ← reusable project card
+│   ├── SkillsSection.jsx ← skill groups
+│   ├── CTASection.jsx    ← contact links
+│   └── Footer.jsx        ← name, copyright
+├── App.jsx               ← video + scroll-scrub + GSAP context
+├── App.css               ← all styles + CSS variables
+└── main.jsx
+```
+
+---
+
+## How the Scroll-Scrub Works
+
+```
+User scrolls down
+      ↓
+GSAP ScrollTrigger tracks scroll progress (0% → 100%)
+      ↓
+video.currentTime = progress × video.duration
+      ↓
+Video plays frame by frame — controlled by scroll
+```
+
+Lenis smooths the scroll so the scrub feels cinematic.
+On mobile, scroll-scrub is disabled and the video plays on loop instead.
+
+---
+
+## Deployment
+
+This project is deployed on [Vercel](https://vercel.com).
+
+```bash
+npm run build
+# then drag the dist/ folder to Vercel
+# or connect your GitHub repo directly
+```
+
+> Remember: do not push `public/hero.mp4` to GitHub.
+> Add it to `.gitignore` and host the video separately if needed.
+
+---
+
+## Contact
+
+- Email: [ayoub40dell@gmail.com](mailto:ayoub40dell@gmail.com)
+- GitHub: [github.com/Aybdell](https://github.com/Aybdell)
+- Portfolio: [ayybdell.vercel.app](https://ayybdell.vercel.app)
