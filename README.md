@@ -1,11 +1,12 @@
 # Ayoub Dellaoui — Cinematic Portfolio
 
 A cinematic scroll-scrub portfolio built with React, GSAP, and Lenis.
-The scroll controls the video playback frame by frame.
+Scroll drives the hero video frame by frame.
+
+**Live:** [ayybdell.vercel.app](https://ayybdell.vercel.app)  
+**Repo:** [github.com/Aybdell/scroll-scrub](https://github.com/Aybdell/scroll-scrub)
 
 ---
-
-
 
 ## Tech Stack
 
@@ -19,13 +20,12 @@ The scroll controls the video playback frame by frame.
 
 ## Features
 
-- Scroll-scrub video — scroll drives video playback frame by frame
-- Smooth scroll with Lenis
+- Scroll-scrub video — scroll drives playback frame by frame
+- Smooth scrolling with Lenis
 - GSAP reveal animations on all sections
-- Floating pill header — centered, glassmorphism
-- Cinematic text sections floating over video
-- Fully responsive — desktop and mobile
-- Video loops seamlessly across the full scroll length
+- Floating pill header
+- Text sections with subtle scrims over the video
+- Responsive layout — desktop scrub, mobile video loop
 
 ---
 
@@ -33,8 +33,8 @@ The scroll controls the video playback frame by frame.
 
 ```bash
 # Clone the repo
-git clone https://github.com/Aybdell/cinematic-portfolio.git
-cd cinematic-portfolio
+git clone https://github.com/Aybdell/scroll-scrub.git
+cd scroll-scrub
 
 # Install dependencies
 npm install
@@ -46,36 +46,7 @@ npm run dev
 npm run build
 ```
 
----
-
-## Video Setup
-
-The hero video is not included in this repository (file too large for GitHub).
-You need to provide your own video to run the project locally.
-
-**1. Get a free cinematic video:**
-- [pexels.com/videos](https://pexels.com/videos)
-- Recommended search: `cinematic dark technology` or `coding screen dark`
-- Download in 1080p or 4K, duration between 15–30 seconds
-
-**2. Encode it with FFmpeg for smooth scroll-scrub:**
-
-Without this step the video will stutter — FFmpeg adds a keyframe
-on every frame which is required for frame-by-frame scrubbing.
-
-```bash
-ffmpeg -i input.mp4 -movflags faststart -vcodec libx264 -crf 20 -g 1 -pix_fmt yuv420p public/hero.mp4
-```
-
-**3. Place the output file here:**
-
-```
-public/
-└── hero.mp4   ← your encoded video goes here
-```
-
-> Without this file the video background will not appear,
-> but the rest of the site works normally.
+The hero video is included at `public/hero.mp4`.
 
 ---
 
@@ -84,15 +55,18 @@ public/
 ```
 src/
 ├── components/
-│   ├── Header.jsx        ← floating pill nav
-│   ├── HeroSection.jsx   ← name, tagline, CTA buttons
-│   ├── ProjectCard.jsx   ← reusable project card
-│   ├── SkillsSection.jsx ← skill groups
-│   ├── CTASection.jsx    ← contact links
-│   └── Footer.jsx        ← name, copyright
-├── App.jsx               ← video + scroll-scrub + GSAP context
-├── App.css               ← all styles + CSS variables
+│   ├── Header.jsx
+│   ├── HeroSection.jsx
+│   ├── ProjectCard.jsx
+│   ├── SkillsSection.jsx
+│   ├── CTASection.jsx
+│   └── Footer.jsx
+├── App.jsx          ← video + scroll-scrub + GSAP context
+├── App.css          ← styles + CSS variables
 └── main.jsx
+
+public/
+└── hero.mp4         ← scroll-scrub hero video
 ```
 
 ---
@@ -102,21 +76,27 @@ src/
 ```
 User scrolls down
       ↓
-GSAP ScrollTrigger tracks scroll progress (0% → 100%)
+GSAP ScrollTrigger tracks scroll progress (0 → 1)
       ↓
-video.currentTime = progress × video.duration
+video.currentTime = (progress × duration × 3) % duration
       ↓
-Video plays frame by frame — controlled by scroll
+Video scrubs across 3 loops — controlled by scroll
 ```
 
-Lenis smooths the scroll so the scrub feels cinematic.
-On mobile, scroll-scrub is disabled and the video plays on loop instead.
+Lenis smooths the scroll so scrubbing feels cinematic.
+On mobile (≤768px), scrub is disabled and the video plays on loop.
 
 ---
 
+## Optional: Re-encode Your Own Video
 
-> Remember: do not push `public/hero.mp4` to GitHub.
-> Add it to `.gitignore` and host the video separately if needed.
+For the smoothest scrub, encode with a keyframe every frame:
+
+```bash
+ffmpeg -i input.mp4 -movflags faststart -vcodec libx264 -crf 20 -g 1 -pix_fmt yuv420p public/hero.mp4
+```
+
+Keep the file under GitHub’s 100MB limit if you commit it.
 
 ---
 
