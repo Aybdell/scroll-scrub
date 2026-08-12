@@ -17,7 +17,7 @@ export default function HeroSection({ lenis }) {
         <p className="hero-tagline hero-reveal">I Turn Ideas Into Products</p>
 
         <p className="hero-description hero-reveal">
-          Frontend-focused Full-Stack Developer specializing in fast, scalable
+          Frontend Developer specializing in fast, scalable
           web apps — from pixel-perfect UI to production-ready backends. If you
           have a problem, I ship the solution.
         </p>
