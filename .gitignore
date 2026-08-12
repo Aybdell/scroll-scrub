@@ -23,6 +23,3 @@ dist-ssr
 *.sln
 *.sw?
 
-# Large local video (keep locally, do not push)
-public/hero.mp4
-
